@@ -4,7 +4,25 @@
 angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Clients',
 	function($scope, $stateParams, $location, Authentication, Clients ) {
 		$scope.authentication = Authentication;
-
+        $scope.myData = [
+            {
+                "firstName": "Cox",
+                "lastName": "Carney",
+                "company": "Enormo",
+                "employed": true
+            },
+            {
+                "firstName": "Lorraine",
+                "lastName": "Wise",
+                "company": "Comveyer",
+                "employed": false
+            },
+            {
+                "firstName": "Nancy",
+                "lastName": "Waters",
+                "company": "Fuelton",
+                "employed": false
+            }];
 		// Create new Client
 		$scope.create = function() {
 			// Create new Client object
