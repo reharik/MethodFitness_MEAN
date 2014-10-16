@@ -1,9 +1,11 @@
 /**
  * Created by rharik on 10/15/14.
  */
+'use strict';
 
-app.factory('socket', function ($rootScope) {
+angular.module('core').factory('socket', function ($rootScope) {
     var socket = io.connect();
+    socket.emit('join',{email: 'users@email.com'});
     return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {
@@ -21,7 +23,7 @@ app.factory('socket', function ($rootScope) {
                         callback.apply(socket, args);
                     }
                 });
-            })
+            });
         }
     };
 });

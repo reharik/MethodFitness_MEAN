@@ -1,28 +1,31 @@
 'use strict';
 
 // Clients controller
-angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Clients',
-	function($scope, $stateParams, $location, Authentication, Clients ) {
+angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Clients', 'socket',
+	function($scope, $stateParams, $location, Authentication, Clients, socket ) {
 		$scope.authentication = Authentication;
-        $scope.myData = [
-            {
-                "firstName": "Cox",
-                "lastName": "Carney",
-                "company": "Enormo",
-                "employed": true
-            },
-            {
-                "firstName": "Lorraine",
-                "lastName": "Wise",
-                "company": "Comveyer",
-                "employed": false
-            },
-            {
-                "firstName": "Nancy",
-                "lastName": "Waters",
-                "company": "Fuelton",
-                "employed": false
-            }];
+        socket.emit('getClients', function(result){
+            $scope.myData = result;
+        });
+//            [
+//            {
+//                "firstName": "Cox",
+//                "lastName": "Carney",
+//                "company": "Enormo",
+//                "employed": true
+//            },
+//            {
+//                "firstName": "Lorraine",
+//                "lastName": "Wise",
+//                "company": "Comveyer",
+//                "employed": false
+//            },
+//            {
+//                "firstName": "Nancy",
+//                "lastName": "Waters",
+//                "company": "Fuelton",
+//                "employed": false
+//            }];
 		// Create new Client
 		$scope.create = function() {
 			// Create new Client object
