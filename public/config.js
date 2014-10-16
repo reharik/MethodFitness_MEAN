@@ -4,7 +4,16 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'methodfitness';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'ui.grid'];
+	var applicationModuleVendorDependencies = ['ngResource',
+        'ngCookies',
+        'ngAnimate',
+        'ngTouch',
+        'ngSanitize',
+        'ui.router',
+        'ui.bootstrap',
+        'ui.utils',
+        'ui.grid',
+        'btford.socket-io'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

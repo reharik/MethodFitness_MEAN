@@ -26,6 +26,31 @@ exports.create = function(req, res) {
 	});
 };
 
+exports.getClients = function(req, res) {
+    console.log('server: getClients');
+
+            res.jsonp( [
+            {
+                "firstName": "Cox",
+                "lastName": "Carney",
+                "company": "Enormo",
+                "employed": true
+            },
+            {
+                "firstName": "Lorraine",
+                "lastName": "Wise",
+                "company": "Comveyer",
+                "employed": false
+            },
+            {
+                "firstName": "Nancy",
+                "lastName": "Waters",
+                "company": "Fuelton",
+                "employed": false
+            }]);
+
+};
+
 /**
  * Show the current Client
  */

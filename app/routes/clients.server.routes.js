@@ -5,9 +5,7 @@ module.exports = function(app) {
 	var clients = require('../../app/controllers/clients');
 
 	// Clients Routes
-	app.route('/clients')
-		.get(clients.list)
-		.post(users.requiresLogin, clients.create);
+	app.route('/clients',clients.getClients);
 
 	app.route('/clients/:clientId')
 		.get(clients.read)
