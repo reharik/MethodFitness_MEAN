@@ -7,17 +7,14 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
         $log.log(socket);
         $scope.init=function(){
             console.log('firing the init func');
-
-
-        socket.emit('getClients', function(result){
-            console.log('returned from socket');
-        });
+            socket.emit('getClients', function(result){
+                console.log('returned from socket');
+            });
         };
         $scope.init();
 
         socket.on('getClients', function (data) {
-            $scope.myData = data;
-
+             $scope.myData = data.data;
         });
 //            [
 //            {

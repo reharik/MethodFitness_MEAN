@@ -107,7 +107,8 @@ app.use(cookieParser());
 // Express MongoDB session storage
 var sessionStore = new mongoStore({
     db: db.connection.db,
-    collection: config.sessionCollection
+    collection: config.sessionCollection,
+    auto_reconnect: true
 });
 app.use(session({
     key:         'express.sid',
@@ -166,105 +167,46 @@ app.use(function(req, res) {
     });
 });
 
-
-
-
 // Start the app by listening on <port>
 var server = app.listen(config.port);
 
 var io = require('socket.io').listen(server);
-
-
-function onAuthorizeSuccess(data, accept){
-    console.log('successful connection to socket.io');
-
-    // The accept-callback still allows us to decide whether to
-    // accept the connection or not.
-    accept(null, true);
-
-    // OR
-
-    // If you use socket.io@1.X the callback looks different
-    accept();
-}
-
-function onAuthorizeFail(data, message, error, accept){
-    if(error)
-        throw new Error(message);
-    console.log('failed connection to socket.io:', message);
-
-    // We use this callback to log all of our failed connections.
-    accept(null, false);
-
-    // OR
-
-    // If you use socket.io@1.X the callback looks different
-    // If you don't want to accept the connection
-    if(error)
-        accept(new Error(message));
-    // this error will be sent to the user as a special error-package
-    // see: http://socket.io/docs/client-api/#socket > error-object
-}
-
 
 io.use(passportSocketIo.authorize({
     cookieParser: cookieParser,
     key:         'express.sid',       // the name of the cookie where express/connect stores its session_id
     secret:      config.sessionSecret,    // the session_secret to parse the cookie
     store:       sessionStore,        // we NEED to use a sessionstore. no memorystore please
-    success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
-    fail:        onAuthorizeFail      // *optional* callback on fail/error - read more below
+    success:     function(data, accept){
+        console.log('successful connection to socket.io');
+        accept(null, true);
+        accept();
+    },  // *optional* callback on success - read more below
+    fail:        function(data, message, error, accept){
+        if(error){ throw new Error(message); }
+        console.log('failed connection to socket.io:', message);
+        accept(null, false);
+        if(error){ accept(new Error(message)); }
+    }
 }));
 
 
-
-
-
-
-
-
 io.sockets.on('connection', function (socket) {
-    console.log('someone connected');
-        var user = socket.client.request.user;
-        socket.join(user.email);
-});
+    var _socket = socket;
+    var user = _socket.client.request.user;
+    console.log(user.email + ' connected');
+    _socket.join(user.email);
 
+    config.getGlobbedFiles('./app/controllers/**/*.js').forEach(function(modelPath) {
+        var controller = require(path.resolve(modelPath));
+        if(typeof controller.respond === 'function'){
+            console.log(controller);
 
-
-
-
-io.sockets.on('getClients', function (data) {
-    console.log("whatthemotherfuck");
-    io.sockets.on.emit('getClients',{
-        data: [
-            {
-                "firstName": "Cox",
-                "lastName": "Carney",
-                "company": "Enormo",
-                "employed": true
-            },
-            {
-                "firstName": "Lorraine",
-                "lastName": "Wise",
-                "company": "Comveyer",
-                "employed": false
-            },
-            {
-                "firstName": "Nancy",
-                "lastName": "Waters",
-                "company": "Fuelton",
-                "employed": false
-            }]
+            controller.respond(user.email,_socket,io);
+        }
     });
+
 });
-
-
-
-
-
-
-
-
 
 // Expose app
 exports = module.exports = app;
