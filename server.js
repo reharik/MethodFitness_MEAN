@@ -175,7 +175,6 @@ var server = app.listen(config.port);
 var io = require('socket.io').listen(server);
 
 
-
 function onAuthorizeSuccess(data, accept){
     console.log('successful connection to socket.io');
 
@@ -234,6 +233,30 @@ io.sockets.on('connection', function (socket) {
 
 
 
+io.sockets.on('getClients', function (data) {
+    console.log("whatthemotherfuck");
+    io.sockets.on.emit('getClients',{
+        data: [
+            {
+                "firstName": "Cox",
+                "lastName": "Carney",
+                "company": "Enormo",
+                "employed": true
+            },
+            {
+                "firstName": "Lorraine",
+                "lastName": "Wise",
+                "company": "Comveyer",
+                "employed": false
+            },
+            {
+                "firstName": "Nancy",
+                "lastName": "Waters",
+                "company": "Fuelton",
+                "employed": false
+            }]
+    });
+});
 
 
 

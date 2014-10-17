@@ -30,5 +30,18 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.error = response.message;
 			});
 		};
+
+        //                console.log('firing the sign func');
+//
+//
+//                socket.emit('signin', function(result){
+//                    console.log('returned from socket');
+//
+//                    $scope.authentication.user = result;
+//
+//                    // And redirect to the index page
+//                    $location.path('/');
+//                });
+//            };
 	}
 ]);

@@ -11,11 +11,14 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
 
         socket.emit('getClients', function(result){
             console.log('returned from socket');
-
-            $scope.myData = result;
         });
         };
         $scope.init();
+
+        socket.on('getClients', function (data) {
+            $scope.myData = data;
+
+        });
 //            [
 //            {
 //                "firstName": "Cox",
