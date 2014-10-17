@@ -1,43 +1,60 @@
 'use strict';
 
-exports.respond = function(room,socket, io) {
-    var mongoose = require('mongoose'),
+exports.respond = function(_room,socket, io) {
+        var mongoose = require('mongoose'),
         errorHandler = require('./errors'),
-        Client = mongoose.model('Client'),
-        _ = require('lodash');
+        ClientSummary = mongoose.model('ClientSummary'),
+        _ = require('lodash'),
+        room = _room;
 
     socket.on('getClients', function (data) {
-        var d;
-        if(room == 'reharik@gmail.com'){
-            d=[
-                {
-                    "firstName": "jesus",
-                    "lastName": "Carney",
-                    "company": "Enormo",
-                    "employed": true
-                },
-                {
-                    "firstName": "Lorraine",
-                    "lastName": "Wise",
-                    "company": "Comveyer",
-                    "employed": false
-                },
-                {
-                    "firstName": "Nancy",
-                    "lastName": "Waters",
-                    "company": "Fuelton",
-                    "employed": false
-                }];
-        }else{
-            d = [
-                {
-                    "firstName": "fuck",
-                    "lastName": "nutz",
-                    "company": "Enormo",
-                    "employed": true
-                }];
-        }
-        io.sockets.in(room).emit('getClients',{data:d});
+        ClientSummary.find().sort('-LastName').exec(function(err, clients) {
+            if (err) {
+//                return res.status(400).send({
+//                    message: errorHandler.getErrorMessage(err)
+//                });
+            } else {
+                io.sockets.in(_room).emit('getClients',{data:clients});
+                console.log(clients);
+            }
+        });
+
+
+
+
+//
+//
+//        var d;
+//        if(room == 'reharik@gmail.com'){
+//            d=[
+//                {
+//                    "firstName": "jesus",
+//                    "lastName": "Carney",
+//                    "company": "Enormo",
+//                    "employed": true
+//                },
+//                {
+//                    "firstName": "Lorraine",
+//                    "lastName": "Wise",
+//                    "company": "Comveyer",
+//                    "employed": false
+//                },
+//                {
+//                    "firstName": "Nancy",
+//                    "lastName": "Waters",
+//                    "company": "Fuelton",
+//                    "employed": false
+//                }];
+//        }else{
+//            d = [
+//                {
+//                    "firstName": "fuck",
+//                    "lastName": "nutz",
+//                    "company": "Enormo",
+//                    "employed": true
+//                }];
+//        }
+//        io.sockets.in(room).emit('getClients',{data:d});
     });
 };
 

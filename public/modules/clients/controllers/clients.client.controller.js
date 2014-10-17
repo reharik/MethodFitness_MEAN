@@ -4,37 +4,7 @@
 angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Clients', 'socket', '$log',
 	function($scope, $stateParams, $location, Authentication, Clients, socket, $log ) {
 		$scope.authentication = Authentication;
-        $log.log(socket);
-        $scope.init=function(){
-            console.log('firing the init func');
-            socket.emit('getClients', function(result){
-                console.log('returned from socket');
-            });
-        };
-        $scope.init();
 
-        socket.on('getClients', function (data) {
-             $scope.myData = data.data;
-        });
-//            [
-//            {
-//                "firstName": "Cox",
-//                "lastName": "Carney",
-//                "company": "Enormo",
-//                "employed": true
-//            },
-//            {
-//                "firstName": "Lorraine",
-//                "lastName": "Wise",
-//                "company": "Comveyer",
-//                "employed": false
-//            },
-//            {
-//                "firstName": "Nancy",
-//                "lastName": "Waters",
-//                "company": "Fuelton",
-//                "employed": false
-//            }];
 		// Create new Client
 //		$scope.create = function() {
 //			// Create new Client object
@@ -81,10 +51,12 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
 //		};
 //
 //		// Find a list of Clients
-//		$scope.find = function() {
-//			$scope.clients = Clients.query();
-//		};
-//
+		$scope.find = function() {
+            socket.emit('getClients');
+        }
+        socket.on('getClients', function (data) {
+            $scope.myData = data;
+        });
 //		// Find existing Client
 //		$scope.findOne = function() {
 //			$scope.client = Clients.get({

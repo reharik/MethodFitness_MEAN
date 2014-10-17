@@ -1,14 +1,50 @@
 <section data-ng-controller="ClientsController">
     <div class="page-header">
-        <h1>New Client</h1>
+        <h1>Create New Client</h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
+                    <label class="control-label" for="FirstName">First Name</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="text" data-ng-model="FirstName" id="FirstName" class="form-control" placeholder="First Name" required>
+                    </div>
+                    <label class="control-label" for="LastName">Last Name</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="LastName" id="LastName" class="form-control" placeholder="Last Name" required>
+                    </div>
+                    <label class="control-label" for="EmailAddress">Email Address</label>
+                    <div class="controls">
+                        <input type="email" data-ng-model="EmailAddress" id="EmailAddress" class="form-control" placeholder="Email Address" required>
+                    </div>
+                    <label class="control-label" for="Address">Address</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="Address" id="Address" class="form-control" placeholder="Address" required>
+                    </div>
+                    <label class="control-label" for="City">City</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="City" id="City" class="form-control" placeholder="City" required>
+                    </div>
+                    <label class="control-label" for="State">State</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="State" id="State" class="form-control" placeholder="State" required>
+                    </div>
+                    <label class="control-label" for="Zip">Zip</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="Zip" id="Zip" class="form-control" placeholder="Zip" required>
+                    </div>
+                    <label class="control-label" for="Phone">Phone</label>
+                    <div class="controls">
+                        <input type="tel" data-ng-model="Phone" id="Phone" class="form-control" placeholder="Phone" required>
+                    </div>
+                    <label class="control-label" for="Source">Source</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="Source" id="Source" class="form-control" placeholder="Source" required>
+                    </div>
+                    <label class="control-label" for="SourceNotes">Source Notes</label>
+                    <div class="controls">
+                        <input type="t" data-ng-model="SourceNotes" id="SourceNotes" class="form-control" placeholder="Source Notes" required>
                     </div>
                 </div>
                 <div class="form-group">
