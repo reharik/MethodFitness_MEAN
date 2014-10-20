@@ -30,6 +30,8 @@ var server = app.listen(config.port);
 
 require('./config/socketIO')(server, db);
 
+require('./config/bootstrapData.js')()();
+
 
 // Expose app
 exports = module.exports = app;

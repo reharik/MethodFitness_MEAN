@@ -10,6 +10,9 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 	}
 ]);
 
+// set angular-ui configs
+angular.module(ApplicationConfiguration.applicationModuleName).config(ApplicationConfiguration.uiSelectConfig);
+
 //Then define the init function for starting up the application
 angular.element(document).ready(function() {
 	//Fixing facebook bug with redirect

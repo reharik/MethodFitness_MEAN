@@ -25,16 +25,18 @@ module.exports = {
 				'public/lib/angular-touch/angular-touch.js', 
 				'public/lib/angular-sanitize/angular-sanitize.js', 
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
-				'public/lib/angular-ui-utils/ui-utils.js',
+                'public/lib/angular-ui-utils/ui-utils.js',
+                'public/lib/angular-ui-select/dist/select.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
                 'public/lib/ui-grid-3.0-rc12/ui-grid.js',
-                'public/lib/angular-socket-io/socket.js',
                 'public/lib/socket.io-client/socket.io.js'
 			]
 		},
 		css: [
-			'public/modules/**/css/*.css'
-		],
+			'public/modules/**/css/*.css',
+            'public/lib/angular-ui-select/dist/select.css',
+
+        ],
 		js: [
 			'public/config.js',
 			'public/application.js',

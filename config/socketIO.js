@@ -25,7 +25,7 @@ module.exports = function(server, db) {
         store:       sessionStore,        // we NEED to use a sessionstore. no memorystore please
         success:     function(data, accept){
             console.log('successful connection to socket.io');
-            accept(null, true);
+//            accept(null, true);
             accept();
         },  // *optional* callback on success - read more below
         fail:        function(data, message, error, accept){
@@ -41,6 +41,7 @@ module.exports = function(server, db) {
         var _socket = socket;
         var user = _socket.client.request.user;
         console.log(user.email + ' connected');
+        var allRooms = Object.keys(io.sockets.adapter.rooms);
         _socket.join(user.email);
 
         config.getGlobbedFiles('./app/controllers/**/*.js').forEach(function(modelPath) {
@@ -48,6 +49,11 @@ module.exports = function(server, db) {
             if(typeof controller.respond === 'function'){
                 controller.respond(user.email,_socket,io);
             }
+        });
+        socket.on('disconnect', function() {
+            console.log(user.email+' leaving room');
+            _socket.leave(user.email);
+
         });
     });
 

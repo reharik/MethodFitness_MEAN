@@ -13,7 +13,7 @@ var ApplicationConfiguration = (function() {
         'ui.bootstrap',
         'ui.utils',
         'ui.grid',
-        'btford.socket-io'];
+        "ui.select"];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
@@ -24,9 +24,14 @@ var ApplicationConfiguration = (function() {
 		angular.module(applicationModuleName).requires.push(moduleName);
 	};
 
+    var uiSelectConfig = function(uiSelectConfig) {
+        uiSelectConfig.theme = 'select2';
+    };
+
 	return {
 		applicationModuleName: applicationModuleName,
 		applicationModuleVendorDependencies: applicationModuleVendorDependencies,
-		registerModule: registerModule
+		registerModule: registerModule,
+        uiSelectConfig: uiSelectConfig
 	};
 })();
