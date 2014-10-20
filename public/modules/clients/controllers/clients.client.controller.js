@@ -4,7 +4,9 @@
 angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Clients', 'socket', '$log',
 	function($scope, $stateParams, $location, Authentication, Clients, socket, $log ) {
 		$scope.authentication = Authentication;
-
+        $scope.init= function(){
+            this.Client = new Client();
+        }
 		// Create new Client
 //		$scope.create = function() {
 //			// Create new Client object
@@ -57,6 +59,12 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
         socket.on('getClients', function (data) {
             $scope.myData = data;
         });
+
+        $scope.createClient = function() {
+            socket.emit('createClient',function(){
+                alert("hi");
+            });
+        }
 //		// Find existing Client
 //		$scope.findOne = function() {
 //			$scope.client = Clients.get({

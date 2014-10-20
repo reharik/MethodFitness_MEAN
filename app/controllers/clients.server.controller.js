@@ -19,6 +19,18 @@ exports.respond = function(_room,socket, io) {
             }
         });
 
+    socket.on('createClient', function (data) {
+        ClientSummary.find().sort('-LastName').exec(function(err, clients) {
+            if (err) {
+//                return res.status(400).send({
+//                    message: errorHandler.getErrorMessage(err)
+//                });
+            } else {
+                io.sockets.in(_room).emit('getClients',{data:clients});
+                console.log(clients);
+            }
+        });
+
 
 
 
