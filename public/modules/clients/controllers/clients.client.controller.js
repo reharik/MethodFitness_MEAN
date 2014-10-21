@@ -18,19 +18,11 @@ angular.module('clients').controller('ClientsController', ['$scope', 'Authentica
         });
 
         $scope.createClient = function() {
-            if ($scope.createClient_form.$valid) {
-                socketIo.emit('createClient', this.client);
-            }
+                socketIo.emit('createClient');
         };
 
         socketIo.on('createClient', function(){
             $state.transitionTo('listClients');
         });
-//		// Find existing Client
-//		$scope.findOne = function() {
-//			$scope.client = Clients.get({
-//				clientId: $stateParams.clientId
-//			});
-//		};
 	}
 ]);

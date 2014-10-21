@@ -27,14 +27,15 @@
                         <input type="text" data-ng-model="client.City" id="City" class="form-control" placeholder="City" required>
                     </div>
                     <label class="control-label" for="State">State</label>
-                    <div class="controls">
-                        <ui-select ng-model="states.selected" theme="selectize" style="width: 300px;">
-                            <ui-select-match placeholder="Select or search a state in the list...">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices repeat="state in states | filter: $select.search">
-                                <span ng-bind-html="state.name | highlight: $select.search"></span>
-                                <small ng-bind-html="state.code | highlight: $select.search"></small>
-                            </ui-select-choices>
-                        </ui-select>
+                    <!--<div class="controls">-->
+                        <!--<ui-select ng-model="states.selected" theme="selectize" style="width: 300px;">-->
+                            <!--<ui-select-match placeholder="Select or search a state in the list...">{{$select.selected.name}}</ui-select-match>-->
+                            <!--<ui-select-choices repeat="state in states | filter: $select.search">-->
+                                <!--<span ng-bind-html="state.name | highlight: $select.search"></span>-->
+                                <!--<small ng-bind-html="state.code | highlight: $select.search"></small>-->
+                            <!--</ui-select-choices>-->
+                        <!--</ui-select>-->
+                    <!--</div>-->
                     <label class="control-label" for="Zip">Zip</label>
                     <div class="controls">
                         <input type="text" data-ng-model="client.Zip" id="Zip" class="form-control" placeholder="Zip" required>
