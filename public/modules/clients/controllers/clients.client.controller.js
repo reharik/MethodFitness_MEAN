@@ -1,16 +1,15 @@
 'use strict';
 
 // Clients controller
-angular.module('clients').controller('ClientsController', ['$scope', 'Authentication', 'socketIo', '$log', '$state',
-	function($scope, Authentication, socketIo, $log, $state ) {
+angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Clients', 'socketIo', '$log',
+	function($scope, $stateParams, $location, Authentication, Clients, socketIo, $log ) {
 		$scope.authentication = Authentication;
         $scope.init= function(){
-            this.client = {};
+            this.client = new Clients();
         };
-
+//
 //		// Find a list of Clients
 		$scope.find = function() {
-            console.log('calling get clients');
             socketIo.emit('getClients');
         };
         socketIo.on('getClients', function (data) {
@@ -18,11 +17,15 @@ angular.module('clients').controller('ClientsController', ['$scope', 'Authentica
         });
 
         $scope.createClient = function() {
-                socketIo.emit('createClient');
+            socketIo.emit('createClient',$scope.client,function(){
+                alert('hi');
+            });
         };
-
-        socketIo.on('createClient', function(){
-            $state.transitionTo('listClients');
-        });
+//		// Find existing Client
+//		$scope.findOne = function() {
+//			$scope.client = Clients.get({
+//				clientId: $stateParams.clientId
+//			});
+//		};
 	}
 ]);

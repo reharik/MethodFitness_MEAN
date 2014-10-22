@@ -13,7 +13,7 @@ var ApplicationConfiguration = (function() {
         'ui.bootstrap',
         'ui.utils',
         'ui.grid',
-        "ui.select"];
+        'ui.select'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
