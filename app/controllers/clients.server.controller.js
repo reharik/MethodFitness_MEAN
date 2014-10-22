@@ -40,21 +40,18 @@ exports.respond = function(_room,socket, io) {
                     'CommandClrTypeName':'trainerGeneratedClient'
                 };
                 var trainerGeneratedClient ={
-                    Contact: {  FirstName: data.firstName,
-                                LastName: data.lastName,
-                                EmailAddress: data.emailAddress,
+                    Contact: {  FirstName: data.FirstName,
+                                LastName: data.LastName,
+                                EmailAddress: data.EmailAddress,
                                 PhoneMobile: data.phoneMobile,
                                 PhoneSecondary: data.phoneSecondary
                     },
                     TrainerId: data.trainerId,
                     SourceNotes: data.sourceNotes,
-                    StartDate: data.startDate,
-                    EventType: 'XO.Local.Conversation.Messages.Command.ContactVendorForBrideCmd, XO.Local.Conversation.Messages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'
+                    StartDate: data.startDate
 
                 };
-        var event2 = new event(uuid.v1, 'TrainerGeneratedClient', true, trainerGeneratedClient, metadata);
-        console.log('wtf!!!! '+event2.data);
-        appender('CommandDispatch', event2,function(){});
+        appender('CommandDispatch', new event(uuid.v1(), 'TrainerGeneratedClient', true, trainerGeneratedClient, metadata),function(){});
 //            }
 //            else
 //            {

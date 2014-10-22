@@ -14,7 +14,7 @@ module.exports = function EventData(eventId, type, isJson, data, metadata) {
 
     Object.defineProperties(this, {
         EventId: { value: eventId, enumerable: true },
-         Type: { value: type, enumerable: true },
+        EventType: { value: type, enumerable: true },
          IsJson: { value: isJson, enumerable: true },
          Data: { value: data, enumerable: true },
          Metadata: { value: metadata, enumerable: true }

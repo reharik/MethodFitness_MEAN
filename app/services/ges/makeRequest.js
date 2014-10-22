@@ -25,18 +25,15 @@ function makeAuthorizedRequest(optsOrStream, cb) {
 //            },
             headers: {
 //                'Accept': esMediaType,
-                 'Content-Type': esMediaType
+                 'Content-Type': esMediaType,
+                'Authorization': 'Basic '+ new Buffer(username+':'+password).toString('base64')
                 //, 'ES-LongPoll': 10
-            }
+            },
+            method:opts.method
         };
 
-    options.method = opts.method;
-    console.log('body: '+opts.body);
-
-    if(opts.body + opts.metadata) {
-        options.data = JSON.stringify(opts.body);
-        console.log('body3: '+options.body);
-
+    if(opts.body ) {
+        options.data = JSON.stringify([opts.body]);
     }
     curl.request(options, function(err, stdout, meta){
     if(err){
