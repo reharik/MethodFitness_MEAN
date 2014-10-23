@@ -5,13 +5,13 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
 	function($scope, $stateParams,$location, Authentication, Clients, socketIo) {
 		$scope.authentication = Authentication;
         $scope.init= function(){
+            console.log('sending getCreateClientViewModel');
             if($stateParams.clientId){}
             else{
-                console.lo('sending getCreateClientViewModel');
                 socketIo.emit('getCreateClientViewModel');
             }
         }
-        socket.on('createClientViewModel', function (data) {
+        socketIo.on('createClientViewModel', function (data) {
             $scope.viewModel=data;
             $scope.viewModel.client = new Clients();
         });
