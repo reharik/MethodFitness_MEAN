@@ -11,7 +11,9 @@ module.exports = function EventData(eventId, type, isJson, data, metadata) {
     isJson = !!isJson;
     data = data || new Buffer(0);
     metadata = metadata || new Buffer(0);
-
+    if(metadata.CommandTypeName){
+        metadata.CommandTypeName = 'MF.Core.Messages.Command.'+metadata.CommandTypeName+', MF.Core.Messages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'
+    }
     Object.defineProperties(this, {
         EventId: { value: eventId, enumerable: true },
         EventType: { value: type, enumerable: true },

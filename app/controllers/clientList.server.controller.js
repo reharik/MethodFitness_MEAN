@@ -3,58 +3,26 @@
 exports.respond = function(_room,socket, io) {
         var mongoose = require('mongoose'),
         errorHandler = require('./errors'),
-            Client = mongoose.model('Client'),
-            State = mongoose.model('State'),
-//            Client = mongoose.model('Client'),
+        ClientSummary = mongoose.model('ClientSummary'),
+        Client = mongoose.model('Client'),
         _ = require('lodash'),
         appender = require('../services/ges/ges-appender.js'),
         event = require('../services/ges/eventData.js'),
         uuid = require('node-uuid'),
         room = _room;
 
-    socket.on('getCreateClientViewModel', function (data) {
-        console.log('getCreateClientViewModel');
-        var states = State.All();
-        var viewModel = {
-            states : states
-        };
-        console.log(states);
-
-        socket.emit('createClientViewModel',{data:viewModel});
-    });
-
-    socket.on('createClient', function (data) {
-        console.log('arrived at createclient');
-
-        Client.findOne({ 'EmailAddress': data.EmailAddress }).exec(function (err, client) {
-            if (err) {return handleError(err);}
-            else if(client){ return handleError(err); }
+    socket.on('getClients', function (data) {
+        console.log('just landed');
+        ClientSummary.find().sort('-LastName').exec(function(err, clients) {
+            if (err) {
+//                return res.status(400).send({
+//                    message: errorHandler.getErrorMessage(err)
+//                });
+            } else {
+                socket.emit('getClients',{data:clients});
+                console.log('here are clients: '+clients);
+            }
         });
-
-        var metadata = {
-            'CommitId':uuid.v1()
-        };
-        var _event = {
-            Contact: {  FirstName: data.FirstName,
-                LastName: data.LastName,
-                EmailAddress: data.EmailAddress,
-                PhoneMobile: data.PhoneMobile,
-                PhoneSecondary: data.PhoneSecondary
-            },
-            TrainerId: data.TrainerId,
-            SourceNotes: data.SourceNotes,
-            StartDate: data.StartDate
-        };
-        if (data.Source == "TrainerGenerated")
-        {
-            metadata.CommandTypeName='SignUpTrainerGeneratedClient';
-        }
-        else
-        {
-            metadata.CommandTypeName='SignUpHouseGeneratedClient';
-            event.Source= data.Source;
-        }
-        appender('CommandDispatch', new event(uuid.v1(), metadata.CommandTypeName, true, _event, metadata),function(){});
     });
 
 

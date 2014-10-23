@@ -4,7 +4,10 @@
  */
 var init = require('./config/init')(),
     config = require('./config/config'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    event = require('./app/services/ges/eventData.js'),
+    uuid = require('node-uuid'),
+    gesAppender = require('./app/services/ges/ges-appender.js');
 
 /**
  * Main application entry file.
@@ -30,10 +33,10 @@ var server = app.listen(config.port);
 
 require('./config/socketIO')(server, db);
 
-
-
 // Expose app
 exports = module.exports = app;
+
+gesAppender('BootstrapApplication', new event(uuid.v1(), 'BootstrapApplication', true, {}, {'CommitId':uuid.v1(), CommandTypeName:'BootstrapApplication'}),function(){});
 
 // Logging initialization
 console.log('MEAN.JS application started on port ' + config.port);

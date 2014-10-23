@@ -1,19 +1,19 @@
 'use strict';
 
 // Clients controller
-angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Clients', 'socketIo', '$log',
-	function($scope, $stateParams, $location, Authentication, Clients, socketIo, $log ) {
+angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Clients', 'socketIo',
+	function($scope, $stateParams,$location, Authentication, Clients, socketIo) {
 		$scope.authentication = Authentication;
         $scope.init= function(){
-            this.client = new Clients();
-        };
-//
-//		// Find a list of Clients
-		$scope.find = function() {
-            socketIo.emit('getClients');
-        };
-        socketIo.on('getClients', function (data) {
-            $scope.myData = data;
+            if($stateParams.clientId){}
+            else{
+                console.lo('sending getCreateClientViewModel');
+                socketIo.emit('getCreateClientViewModel');
+            }
+        }
+        socket.on('createClientViewModel', function (data) {
+            $scope.viewModel=data;
+            $scope.viewModel.client = new Clients();
         });
 
         $scope.createClient = function() {
@@ -21,11 +21,5 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
                 alert('hi');
             });
         };
-//		// Find existing Client
-//		$scope.findOne = function() {
-//			$scope.client = Clients.get({
-//				clientId: $stateParams.clientId
-//			});
-//		};
 	}
 ]);

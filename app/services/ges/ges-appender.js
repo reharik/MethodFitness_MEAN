@@ -13,7 +13,6 @@ function addEventToStream(stream, events, cb) {
         function(err, res, body) {
         if(err) return cb(err);
 
-        console.log('headers: '+res.headers, body);
         if(body) {
             body = JSON.parse(body);
         }

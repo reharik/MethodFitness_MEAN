@@ -1,4 +1,4 @@
-<section data-ng-controller="ClientsController">
+<section data-ng-controller="ClientsController" data-ng-init="init()">
     <div class="page-header">
         <h1>Create New Client</h1>
     </div>
@@ -8,49 +8,49 @@
                 <div class="form-group">
                     <label class="control-label" for="FirstName">First Name</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="client.FirstName" id="FirstName" class="form-control" placeholder="First Name" required>
+                        <input type="text" data-ng-model="viewModel.client.FirstName" id="FirstName" class="form-control" placeholder="First Name" required>
                     </div>
                     <label class="control-label" for="LastName">Last Name</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="client.LastName" id="LastName" class="form-control" placeholder="Last Name" required>
+                        <input type="text" data-ng-model="viewModel.client.LastName" id="LastName" class="form-control" placeholder="Last Name" required>
                     </div>
                     <label class="control-label" for="EmailAddress">Email Address</label>
                     <div class="controls">
-                        <input type="email" data-ng-model="client.EmailAddress" id="EmailAddress" class="form-control" placeholder="Email Address" required>
+                        <input type="email" data-ng-model="viewModel.client.EmailAddress" id="EmailAddress" class="form-control" placeholder="Email Address" required>
                     </div>
                     <label class="control-label" for="Address">Address</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="client.Address" id="Address" class="form-control" placeholder="Address" required>
+                        <input type="text" data-ng-model="viewModel.client.Address" id="Address" class="form-control" placeholder="Address" required>
                     </div>
                     <label class="control-label" for="City">City</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="client.City" id="City" class="form-control" placeholder="City" required>
+                        <input type="text" data-ng-model="viewModel.client.City" id="City" class="form-control" placeholder="City" required>
                     </div>
-                    <!--<label class="control-label" for="State">State</label>-->
-                    <!--<div class="controls">-->
-                        <!--<ui-select ng-model="states.selected" theme="selectize" style="width: 300px;">-->
-                            <!--<ui-select-match placeholder="Select or search a state in the list...">{{$select.selected.name}}</ui-select-match>-->
-                            <!--<ui-select-choices repeat="state in states | filter: $select.search">-->
-                                <!--<span ng-bind-html="state.name | highlight: $select.search"></span>-->
-                                <!--<small ng-bind-html="state.code | highlight: $select.search"></small>-->
-                            <!--</ui-select-choices>-->
-                        <!--</ui-select>-->
-                    <!--</div>-->
+                    <label class="control-label" for="State">State</label>
+                    <div class="controls">
+                        <ui-select ng-model="viewModel.states.selected" theme="selectize" style="width: 300px;">
+                            <ui-select-match placeholder="Select or search a state in the list...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="state in viewModel.states | filter: $select.search">
+                                <span ng-bind-html="state.name | highlight: $select.search"></span>
+                                <small ng-bind-html="state.code | highlight: $select.search"></small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
                     <label class="control-label" for="Zip">Zip</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="client.Zip" id="Zip" class="form-control" placeholder="Zip" required>
+                        <input type="text" data-ng-model="viewModel.client.Zip" id="Zip" class="form-control" placeholder="Zip" required>
                     </div>
                     <label class="control-label" for="Phone">Phone</label>
                     <div class="controls">
-                        <input type="tel" data-ng-model="client.Phone" id="Phone" class="form-control" placeholder="Phone" required>
+                        <input type="tel" data-ng-model="viewModel.client.Phone" id="Phone" class="form-control" placeholder="Phone" required>
                     </div>
                     <label class="control-label" for="Source">Source</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="client.Source" id="Source" class="form-control" placeholder="Source" required>
+                        <input type="text" data-ng-model="viewModel.client.Source" id="Source" class="form-control" placeholder="Source" required>
                     </div>
                     <label class="control-label" for="SourceNotes">Source Notes</label>
                     <div class="controls">
-                        <input type="t" data-ng-model="client.SourceNotes" id="SourceNotes" class="form-control" placeholder="Source Notes" required>
+                        <input type="t" data-ng-model="viewModel.client.SourceNotes" id="SourceNotes" class="form-control" placeholder="Source Notes" required>
                     </div>
                 </div>
                 <div class="form-group">
