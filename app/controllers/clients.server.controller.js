@@ -10,17 +10,20 @@ exports.respond = function(_room,socket, io) {
         appender = require('../services/ges/ges-appender.js'),
         event = require('../services/ges/eventData.js'),
         uuid = require('node-uuid'),
+        async = require('async'),
         room = _room;
 
     socket.on('getCreateClientViewModel', function (data) {
         console.log('getCreateClientViewModel');
         var viewModel = {};
-        State.findOne({"Name" : "Alabama"}).exec(function(err, states){
-            viewModel.states = states;
-            console.log(viewModel.states);
-            socket.emit('createClientViewModel',{data:viewModel});
+        async.parallel({
+            states: function(cb){
+                State.find({}, cb);
+            }
+        }, function(err, results){
+            viewModel.states = results.states;
+            socket.emit('createClientViewModel',{viewModel:viewModel});
         });
-
     });
 
     socket.on('createClient', function (data) {
@@ -28,7 +31,7 @@ exports.respond = function(_room,socket, io) {
 
         Client.findOne({ 'EmailAddress': data.EmailAddress }).exec(function (err, client) {
             if (err) {return handleError(err);}
-            else if(client){ return handleError(err); }
+            else if(client){ console.log(client); }
         });
 
         var metadata = {
@@ -55,6 +58,7 @@ exports.respond = function(_room,socket, io) {
             event.Source= data.Source;
         }
         appender('CommandDispatch', new event(uuid.v1(), metadata.CommandTypeName, true, _event, metadata),function(){});
+        socket.emit('clientCreatedCmdSent');
     });
 };
 

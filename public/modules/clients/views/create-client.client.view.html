@@ -29,10 +29,10 @@
                     <label class="control-label" for="State">State</label>
                     <div class="controls">
                         <ui-select ng-model="viewModel.states.selected" theme="selectize" style="width: 300px;">
-                            <ui-select-match placeholder="Select or search a state in the list...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-match placeholder="Select or search a state in the list...">{{$select.selected.Name}}</ui-select-match>
                             <ui-select-choices repeat="state in viewModel.states | filter: $select.search">
-                                <span ng-bind-html="state.name | highlight: $select.search"></span>
-                                <small ng-bind-html="state.code | highlight: $select.search"></small>
+                                <span ng-bind-html="state.Name | highlight: $select.search"></span>
+                                <small ng-bind-html="state.Code | highlight: $select.search"></small>
                             </ui-select-choices>
                         </ui-select>
                     </div>

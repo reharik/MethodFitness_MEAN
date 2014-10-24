@@ -4,7 +4,6 @@ exports.respond = function(_room,socket, io) {
         var mongoose = require('mongoose'),
         errorHandler = require('./errors'),
         ClientSummary = mongoose.model('ClientSummary'),
-        Client = mongoose.model('Client'),
         _ = require('lodash'),
         appender = require('../services/ges/ges-appender.js'),
         event = require('../services/ges/eventData.js'),
@@ -15,12 +14,12 @@ exports.respond = function(_room,socket, io) {
         console.log('just landed');
         ClientSummary.find().sort('-LastName').exec(function(err, clients) {
             if (err) {
+                console.log(err);
 //                return res.status(400).send({
 //                    message: errorHandler.getErrorMessage(err)
 //                });
             } else {
-                socket.emit('getClients',{data:clients});
-                console.log('here are clients: '+clients);
+                socket.emit('getClients',clients);
             }
         });
     });

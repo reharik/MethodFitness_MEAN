@@ -84,6 +84,7 @@ module.exports = function(db) {
     // CookieParser should be above session
     app.use(cookieParser());
 
+    db.set('debug',true);
     // Express MongoDB session storage
     var sessionStore = new mongoStore({
         db: db.connection.db,

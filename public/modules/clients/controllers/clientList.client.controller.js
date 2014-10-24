@@ -1,7 +1,7 @@
 'use strict';
 
 // Clients controller
-angular.module('clients').controller('ClientListController', ['$scope', 'Authentication', 'socketIo', ,
+angular.module('clients').controller('ClientListController', ['$scope', 'Authentication', 'socketIo',
 	function($scope, Authentication, socketIo ) {
 		$scope.authentication = Authentication;
 

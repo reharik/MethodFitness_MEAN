@@ -15,7 +15,9 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-                'public/lib/ui-grid-3.0-rc12/ui-grid.css'
+                'public/lib/ui-grid-3.0-rc12/ui-grid.css',
+                'public/lib/angular-ui-notification/dist/angular-ui-notification.min.css'
+
             ],
 			js: [
 				'public/lib/angular/angular.js',
@@ -29,8 +31,9 @@ module.exports = {
                 'public/lib/angular-ui-select/dist/select.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
                 'public/lib/ui-grid-3.0-rc12/ui-grid.js',
-                'public/lib/socket.io-client/socket.io.js'
-			]
+                'public/lib/socket.io-client/socket.io.js',
+                'public/lib/angular-ui-notification/dist/angular-ui-notification.min.js'
+            ]
 		},
 		css: [
 			'public/modules/**/css/*.css',
