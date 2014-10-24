@@ -15,15 +15,30 @@ exports.respond = function(_room,socket, io) {
 
     socket.on('getCreateClientViewModel', function (data) {
         console.log('getCreateClientViewModel');
+//        async.parallel({
+//            states: function(cb){
+//                State.find({}, cb);
+//            }
+//        }, function(err, results){
+//            viewModel.states = results.states;
+//            console.log("results: "+results.states);
+//            console.log("veiwmodel: "+viewModel.states);
+//
+//            socket.emit('createClientViewModel',{viewModel:viewModel});
+//        });
+        console.log('calling states');
+
         var viewModel = {};
-        async.parallel({
-            states: function(cb){
-                State.find({}, cb);
-            }
-        }, function(err, results){
-            viewModel.states = results.states;
+        State.find(function(err,states){
+            if(err){
+                console.log(err);
+            }else{
+            viewModel.states = states;
+//            console.log("results: "+states);
+//            console.log("veiwmodel: "+viewModel.states);
             socket.emit('createClientViewModel',{viewModel:viewModel});
-        });
+            }
+        })
     });
 
     socket.on('createClient', function (data) {
