@@ -79,7 +79,11 @@ var ClientSchema = new Schema({
 	StartDate: {
 		type: Date,
 		default: Date.now
-	}
+	},
+    Dob: {
+        type: Date
+    }
+
 });
 
 mongoose.model('Client', ClientSchema);

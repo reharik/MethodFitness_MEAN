@@ -3,9 +3,8 @@
 exports.respond = function(_room,socket, io) {
         var mongoose = require('mongoose'),
         errorHandler = require('./errors'),
-            Client = mongoose.model('Client'),
-            State = mongoose.model('State'),
-//            Client = mongoose.model('Client'),
+        Client = mongoose.model('Client'),
+        State = mongoose.model('State'),
         _ = require('lodash'),
         appender = require('../services/ges/ges-appender.js'),
         event = require('../services/ges/eventData.js'),
@@ -15,30 +14,30 @@ exports.respond = function(_room,socket, io) {
 
     socket.on('getCreateClientViewModel', function (data) {
         console.log('getCreateClientViewModel');
-//        async.parallel({
-//            states: function(cb){
-//                State.find({}, cb);
-//            }
-//        }, function(err, results){
-//            viewModel.states = results.states;
-//            console.log("results: "+results.states);
-//            console.log("veiwmodel: "+viewModel.states);
-//
-//            socket.emit('createClientViewModel',{viewModel:viewModel});
-//        });
-        console.log('calling states');
-
         var viewModel = {};
-        State.find(function(err,states){
+        async.parallel({
+            states: function(cb){
+                State.find({}, cb);
+            }
+        }, function(err, results){
             if(err){
                 console.log(err);
-            }else{
-            viewModel.states = states;
-//            console.log("results: "+states);
-//            console.log("veiwmodel: "+viewModel.states);
-            socket.emit('createClientViewModel',{viewModel:viewModel});
+            }else{viewModel.states = results.states;
+               socket.emit('createClientViewModel',{viewModel:viewModel});
             }
-        })
+        });
+//        console.log('calling states');
+
+//            console.log("results: "+states);
+//        State.find(function(err,states){
+//            if(err){
+//                console.log(err);
+//            }else{
+//                viewModel.states = states;
+////            console.log("veiwmodel: "+viewModel.states);
+//            socket.emit('createClientViewModel',{viewModel:viewModel});
+//            }
+//        })
     });
 
     socket.on('createClient', function (data) {
@@ -50,7 +49,9 @@ exports.respond = function(_room,socket, io) {
         });
 
         var metadata = {
-            'CommitId':uuid.v1()
+            'CommitId':uuid.v1(),
+            'ClientRoom':_room,
+            'ReturnEvent':'clientCreatedResponse'
         };
         var _event = {
             Contact: {  FirstName: data.FirstName,

@@ -3,37 +3,89 @@
         <h1>Create New Client</h1>
     </div>
         <form name="createClient_form" class="form-horizontal" data-ng-submit="createClient()" novalidate>
-            <div class="col-md-6">
+            <div class="col-lg-6 padding-right:5px">
                 <fieldset>
                     <div class="form-group">
-                        <label class="control-label" for="FirstName">First Name</label>
-                        <div class="controls">
-                            <input type="text" data-ng-model="viewModel.client.FirstName" id="FirstName" class="form-control" placeholder="First Name" required>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" for="FirstName">First Name</label>
+                                <div class="controls">
+                                    <input type="text" data-ng-model="viewModel.client.FirstName" id="FirstName" class="form-control" placeholder="First Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label" for="LastName">Last Name</label>
+                                <div class="controls">
+                                    <input type="text" data-ng-model="viewModel.client.LastName" id="LastName" class="form-control" placeholder="Last Name" required>
+                                </div>
+                            </div>
                         </div>
-                        <label class="control-label" for="LastName">Last Name</label>
-                        <div class="controls">
-                            <input type="text" data-ng-model="viewModel.client.LastName" id="LastName" class="form-control" placeholder="Last Name" required>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" for="Address">Address</label>
+                                <div class="controls">
+                                    <input type="text" data-ng-model="viewModel.client.Address" id="Address" class="form-control" placeholder="Address" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label" for="EmailAddress">Email Address</label>
+                                <div class="controls">
+                                    <input type="email" data-ng-model="viewModel.client.EmailAddress" id="EmailAddress" class="form-control" placeholder="Email Address" required>
+                                </div>
+                            </div>
                         </div>
-                        <label class="control-label" for="EmailAddress">Email Address</label>
-                        <div class="controls">
-                            <input type="email" data-ng-model="viewModel.client.EmailAddress" id="EmailAddress" class="form-control" placeholder="Email Address" required>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" for="City">City</label>
+                                <div class="controls">
+                                    <input type="text" data-ng-model="viewModel.client.City" id="City" class="form-control" placeholder="City" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label" for="Phone">Phone</label>
+                                <div class="controls">
+                                    <input type="tel" data-ng-model="viewModel.client.Phone" id="Phone" class="form-control" placeholder="Phone" required>
+                                </div>
+                            </div>
                         </div>
-                        <label class="control-label" for="Address">Address</label>
-                        <div class="controls">
-                            <input type="text" data-ng-model="viewModel.client.Address" id="Address" class="form-control" placeholder="Address" required>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="control-label" for="State">State</label>
+                                <div class="controls">
+                                    <select ng-model="viewModel.client.State" ng-options="state.Name for state in viewModel.states" class="form-control" placeholder="State">
+                                        <option value='' disabled>-- State --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label" for="Zip">Zip</label>
+                                <div class="controls">
+                                    <input type="text" data-ng-model="viewModel.client.Zip" id="Zip" class="form-control" placeholder="Zip" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label" for="Phone">Secondary Phone</label>
+                                <div class="controls">
+                                    <input type="tel" data-ng-model="viewModel.client.SecondaryPhone" id="SecondaryPhone" class="form-control" placeholder="Secondary Phone" required>
+                                </div>
+                            </div>
                         </div>
-                        <label class="control-label" for="City">City</label>
-                        <div class="controls">
-                            <input type="text" data-ng-model="viewModel.client.City" id="City" class="form-control" placeholder="City" required>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" for="Source">Source</label>
+                                <div class="controls">
+                                    <input type="text" data-ng-model="viewModel.client.Source" id="Source" class="form-control" placeholder="Source" required>
+                                </div>
+                            </div>
                         </div>
-                        <label class="control-label" for="State">State</label>
-                        <div class="controls">
-                            <select ng-model="viewModel.client.State" ng-options="state.Name for state in viewModel.states" class="form-control" placeholder="State"></select>
-                        </div>
-                        <label class="control-label" for="Zip">Zip</label>
-                        <div class="controls">
-                            <input type="text" data-ng-model="viewModel.client.Zip" id="Zip" class="form-control" placeholder="Zip" required>
-                        </div>
+                        <!--<div class="row">-->
+                            <!--<div class="col-md-12">-->
+                                <!--<label class="control-label" for="SourceNotes">Source Notes</label>-->
+                                <!--<div class="controls">-->
+                                    <!--<textarea data-ng-model="viewModel.client.SourceNotes" id="SourceNotes" class="form-control" placeholder="Source Notes" required>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-default" value="Submit">
@@ -42,26 +94,7 @@
                         <strong data-ng-bind="error"></strong>
                     </div>
                 </fieldset>
-            </div>
-            <div class="col-md-6">
-                <fieldset>
-                    <div class="form-group">
-                        <label class="control-label" for="Phone">Phone</label>
-                        <div class="controls">
-                            <input type="tel" data-ng-model="viewModel.client.Phone" id="Phone" class="form-control" placeholder="Phone" required>
-                        </div>
-                        <label class="control-label" for="Source">Source</label>
-                        <div class="controls">
-                            <input type="text" data-ng-model="viewModel.client.Source" id="Source" class="form-control" placeholder="Source" required>
-                        </div>
-                        <label class="control-label" for="SourceNotes">Source Notes</label>
-                        <div class="controls">
-                            <input type="t" data-ng-model="viewModel.client.SourceNotes" id="SourceNotes" class="form-control" placeholder="Source Notes" required>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
 
-
+            </div>
         </form>
 </section>

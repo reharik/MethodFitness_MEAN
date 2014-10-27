@@ -7,10 +7,18 @@ angular.module('clients').controller('ClientListController', ['$scope', 'Authent
 
 //		// Find a list of Clients
 		$scope.find = function() {
+            $scope.gridOptions = {
+                enableSorting: true,
+                columnDefs: [
+                    { name:'firstName', field: 'FirstName' },
+                    { name:'lastName', field: 'LastName' },
+                    { name:'city', field: 'City'},
+                    { name:'zip', field: 'Zip'}
+                ]};
             socketIo.emit('getClients');
         };
         socketIo.on('getClients', function (data) {
-            $scope.myData = data;
+            $scope.gridOptions.data= data;
         });
 	}
 ]);

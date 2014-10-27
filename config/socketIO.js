@@ -7,6 +7,7 @@ var  passportSocketIo = require('passport.socketio'),
     }),
     config = require('./config.js'),
     path = require('path'),
+    uuid = require('node-uuid'),
     cookieParser = require('cookie-parser');
 
 module.exports = function(server, db) {
@@ -40,20 +41,19 @@ module.exports = function(server, db) {
     io.sockets.on('connection', function (socket) {
         var _socket = socket;
         var user = _socket.client.request.user;
-        console.log(user.email + ' connected');
-        var allRooms = Object.keys(io.sockets.adapter.rooms);
-        _socket.join(user.email);
+        var userRoom = user.email + uuid.v1();
+        console.log(userRoom + ' connected');
+        _socket.join(userRoom);
 
         config.getGlobbedFiles('./app/controllers/**/*.js').forEach(function(modelPath) {
             var controller = require(path.resolve(modelPath));
             if(typeof controller.respond === 'function'){
-                controller.respond(user.email,_socket,io);
+                controller.respond(userRoom,_socket,io);
             }
         });
         socket.on('disconnect', function() {
             console.log(user.email+' leaving room');
-            _socket.leave(user.email);
-
+            _socket.leave(userRoom);
         });
     });
 
